@@ -74,3 +74,33 @@ body{
   color: #888;
   background-color: #f6f6f6;
 }
+
+
+.todo-table{
+  display: table;
+  margin: 5px;
+}
+
+.todo-tr{
+  display: table-row;
+}
+
+.todo-td{
+  display: table-cell;
+  width: 15%;
+}
+
+.todo-add{
+
+}
+
+.todo-add input{
+  width: 80px;
+  padding: 3px 6px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 16px;
+  font-family: 'Microsoft JhengHei';
+  color: #336;
+  margin-right: 12px;
+}
