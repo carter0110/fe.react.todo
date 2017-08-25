@@ -18,6 +18,32 @@ var TodoInput = React.createClass({
     }
 });
 
+var TodoFeature = React.createClass({
+    getDefaultProps: function(){
+        return {
+            initialSortAsc: false,
+        };
+    },
+    getInitialState: function(){
+        return {
+            sortAsc: this.props.initialSortAsc,
+        };
+    },
+    onClick: function(){
+        this.props.toggleSort();
+        this.setState({sortAsc: !this.state.sortAsc});
+    },
+    render: function () {
+        return (
+            <div className='todo-feature todo-table'>
+                <div className='todo-tr'>
+                    <div className='todo-td'>Now sort: {this.state.sortAsc === true ? '🔼' : '🔽'}</div>
+                    <div className='todo-td'><button type='button' onClick={this.onClick}>ReSort {this.state.sortAsc === true ? '🔽' : '🔼'}</button></div>
+                </div>
+            </div>
+        )
+    }
+});
 
 var TodoItem = React.createClass({
     getDefaultProps: function(){
@@ -60,7 +86,8 @@ var Todo = React.createClass({
     },
     getInitialState: function(){
         return {
-            data: this.props.dataList,
+            data: dataList,
+            asc: false,
         }
     },
     addItem: function(name, score){
@@ -70,16 +97,38 @@ var Todo = React.createClass({
             name: name,
             score: score
         });
-        newData.sort(function(a, b){
-            return a.score - b.score;
-        })
+        // newData.sort(function(a, b){
+        //     return a.score - b.score;
+        // })
+        this.sortItem(newData);
         this.setState({ data: newData });
+    },
+    sortItem: function (dataSrc){
+        if (this.state.asc === true) {
+            dataSrc.sort(function (a, b) {
+                return a.score - b.score;
+            });
+        }
+        else if(this.state.asc === false) {
+            dataSrc.sort(function (a, b) {
+                return b.score - a.score;
+            });
+        }
+    },
+    toggleSort: function () {
+        this.state.asc = !this.state.asc;
+        this.sortItem(this.state.data);
+        this.setState({
+            data: this.state.data,
+        })
+
     },
     render: function(){
         return (
             <div>
                 <h2>Score list</h2>
                 <TodoInput addItem={this.addItem}/>
+                <TodoFeature toggleSort={this.toggleSort} initialSortAsc={this.state.asc}/>
                 <TodoList data={this.state.data}/>
             </div>
         );

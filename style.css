@@ -78,7 +78,8 @@ body{
 
 .todo-table{
   display: table;
-  margin: 5px;
+  margin: 10px 5px 5px 5px;
+  width: 20%;
 }
 
 .todo-tr{
@@ -103,4 +104,8 @@ body{
   font-family: 'Microsoft JhengHei';
   color: #336;
   margin-right: 12px;
+}
+
+.todo-feature{
+  /* margin: 3px; */
 }
